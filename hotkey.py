@@ -1,13 +1,22 @@
 from pynput import keyboard
 
-def on_activate():
-    print('Hotkey: <ctrl><prtsc> pressed.')
+class ScreenshotListener:
 
-"""def for_canonical(f):
-    return lambda k: f(l.canonical(k))
+    def __init__(self) -> None:
+        self.listener = None
 
+    def on_activate(self):
+        print('Hotkey: <ctrl><prtsc> pressed.')
 
-hotkey = keyboard.HotKey(keyboard.HotKey.parse('<ctrl>+<print_screen>'), on_activate)
+    def for_canonical(self, f):
+        return lambda k: f(self.listener.canonical(k))
 
-with keyboard.Listener(on_press=for_canonical(hotkey.press), on_release=for_canonical(hotkey.release)) as l:
-    l.join() """
+    hotkey = keyboard.HotKey(keyboard.HotKey.parse('<ctrl>+<print_screen>'), on_activate)
+
+    l = keyboard.Listener(on_press=for_canonical(hotkey.press), on_release=for_canonical(hotkey.release))
+
+    print('Starting listener.')
+    l.start()
+
+    print('Performing join?')
+    l.join()
