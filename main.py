@@ -9,14 +9,16 @@ def main():
 
     scl = ScreenshotListener()
     scl.setup(take_screenshot)
-    
+    scl.start()
+
     while True:  # Main loop to listen for screenshot command
         # The system tray allows for users to manually take a screenshot without
         # inputting the global hotkey command. It also enables the user to exit
         # the program and stop having it listen for the hotkey.
-        menu_item = tray.Read(timeout=0)
-        scl.start()
+        menu_item = tray.Read()
         if menu_item == 'Exit':
+            scl.stop()
+            print('Program has been terminated by user from the systray.')
             break
         elif menu_item == 'Screenshot':
             print('screenshot')
