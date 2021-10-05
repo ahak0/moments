@@ -1,5 +1,4 @@
-""" Contains various functions to work with the Google Drive API.
-"""
+""" Contains various functions to work with the Google Drive API."""
 
 from googleapiclient import discovery
 from httplib2 import Http
@@ -10,7 +9,7 @@ CLIENT_SECRET = 'client_secret.json'
 HTTP_OK = 200
 
 def get_authorization() -> discovery.Resource:
-    """ Executes the OAuth2Client flow. 
+    """Executes the OAuth2Client flow. 
 
         Returns:
             A googleapiclient.discovery.Resource object that has authorization
@@ -25,7 +24,7 @@ def get_authorization() -> discovery.Resource:
     return DRIVE
 
 def upload_file(drive_service, filename) -> None:
-    """ Uploads the file specified to the service provided. """
+    """Uploads the file specified to the service provided. """
     metadata = {'name': filename}
     result = drive_service.files().create(body=metadata, media_body=filename).execute()
     if result:
