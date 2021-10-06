@@ -38,14 +38,7 @@ class ScreenshotListener:
             self.listener.start()
         else:
             print('The listener is already running!')
-        '''
-        try:
-            self.listener.join()
-        except ListenerException as e:
-            print('{0} was pressed.'.format(e.args[0]))
-        '''
 
     def stop(self) -> None:
         if self.listener.running:
             self.listener.stop()
-

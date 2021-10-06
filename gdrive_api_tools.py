@@ -9,12 +9,7 @@ CLIENT_SECRET = 'client_secret.json'
 HTTP_OK = 200
 
 def get_authorization() -> discovery.Resource:
-    """Executes the OAuth2Client flow. 
-
-        Returns:
-            A googleapiclient.discovery.Resource object that has authorization
-            to be accessed.
-    """
+    """Executes the OAuth2Client flow."""
     store = file.Storage('storage.json')
     creds = store.get()
     if not creds or creds.invalid:
@@ -23,9 +18,13 @@ def get_authorization() -> discovery.Resource:
     DRIVE = discovery.build('drive', 'v3', http=creds.authorize(Http()))
     return DRIVE
 
-def upload_file(drive_service, filename) -> None:
-    """Uploads the file specified to the service provided. """
+def upload_file(drive_service : discovery.Resource, filename : str) -> str:
+    """Uploads the file specified to the service provided."""
     metadata = {'name': filename}
     result = drive_service.files().create(body=metadata, media_body=filename).execute()
     if result:
-        print('Successfully uploaded "%s" (%s)' % (filename, result['mimeType']))
+        msg = 'Successfully uploaded "%s" (%s)' % (filename, result['mimeType'])
+    else:
+        msg = 'Failed to upload "%s" (%s).' % (filename, result['mimeType'])
+    print(msg)
+    return msg

@@ -1,10 +1,9 @@
-from gdrive_api_tools import get_authorization, upload_file
 from PySimpleGUIQt import SystemTray, DEFAULT_BASE64_ICON
 from ScreenshotListener import ScreenshotListener
 from screenshot_tools import take_screenshot
 
 def main():
-    MENU_LAYOUT = ['BLANK', ['&Screenshot', '&Exit']]
+    MENU_LAYOUT = ['BLANK', ['Screenshot (Ctrl + PrtSc)', '&Exit']]
     tray = SystemTray(menu=MENU_LAYOUT, data_base64=DEFAULT_BASE64_ICON)
 
     scl = ScreenshotListener()
@@ -22,11 +21,6 @@ def main():
             break
         elif menu_item == 'Screenshot':
             print('screenshot')
-
-def upload_screenshot(screenshot) -> None:
-    gdrive = get_authorization()
-    upload_file(gdrive, screenshot)
-    gdrive.close()
 
 if __name__ == '__main__':
     main()
