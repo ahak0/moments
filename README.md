@@ -29,4 +29,4 @@ Even if Window's built-in tool does support auto-saving functionality, it does n
 This proves to be more useful in a context where the user utilizes screenshotting multiple different applications and wishes to create a collection or just wants to be organized. A naming convention such as this also enables scripts for sorting, managing, etc. based off of what the application the image is of.
 
 # License
-Moments is intentionally un-licensed.
+Moments is intentionally un-licensed but NOT in the same conditions as `The Unlicense` license. Anyone is **not** free to publish, sell, or distribute this software for commercial purposes by any means.
