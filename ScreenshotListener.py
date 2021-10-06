@@ -49,8 +49,8 @@ class ScreenshotListener:
     def upload_stack(self) -> None:
         while (len(self.sc_stack)):
             fname = self.sc_stack.pop()
-            #status_msg = upload_screenshot(fname)
-            notify('status_msg')
+            status_msg = upload_screenshot(fname)
+            notify(status_msg)
 
     def has_uploadable(self) -> bool:
         if len(self.sc_stack):
