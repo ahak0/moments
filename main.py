@@ -4,6 +4,7 @@ from screenshot_tools import take_screenshot
 
 def main():
     MENU_LAYOUT = ['BLANK', ['Screenshot (Ctrl + PrtSc)', '&Exit']]
+    TIMEOUT = 10000
     tray = SystemTray(menu=MENU_LAYOUT, data_base64=DEFAULT_BASE64_ICON)
 
     scl = ScreenshotListener()
@@ -14,7 +15,9 @@ def main():
         # The system tray allows for users to manually take a screenshot without
         # inputting the global hotkey command. It also enables the user to exit
         # the program and stop having it listen for the hotkey.
-        menu_item = tray.Read()
+        if scl.has_uploadable():
+            scl.upload_stack()
+        menu_item = tray.Read(timeout=TIMEOUT)
         if menu_item == 'Exit':
             scl.stop()
             print('Program has been terminated by user from the systray.')

@@ -1,4 +1,5 @@
 from pynput import keyboard
+from screenshot_tools import notify, upload_screenshot
 
 class ListenerException(Exception): pass
 
@@ -17,9 +18,11 @@ class ScreenshotListener:
     def __init__(self):
         self.listener = None
         self.action = None
+        self.sc_stack = []
 
     def _on_activate(self) -> None:
-        self.action()
+        screenshot = self.action()
+        self.sc_stack.append(screenshot)
         print('Hotkey: <ctrl><prtsc> pressed.')
 
     def _for_canonical(self, f):
@@ -42,3 +45,14 @@ class ScreenshotListener:
     def stop(self) -> None:
         if self.listener.running:
             self.listener.stop()
+
+    def upload_stack(self) -> None:
+        while (len(self.sc_stack)):
+            fname = self.sc_stack.pop()
+            #status_msg = upload_screenshot(fname)
+            notify('status_msg')
+
+    def has_uploadable(self) -> bool:
+        if len(self.sc_stack):
+            return True
+        return False
